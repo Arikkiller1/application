@@ -44,14 +44,14 @@ uploaded_file = st.sidebar.file_uploader("Upload a file")
 if uploaded_file is not None:
     if uploaded_file.name.endswith('.csv'):
         df1 = pd.read_csv(uploaded_file, encoding='ISO-8859-1',usecols=['Date', 'Category','Item','Qty','Price Point Name','SKU','Gross Sales'])
-        df1 = df1.rename(columns={'Price Point Name': 'PricePointName', 'Gross Sale': 'GrossSale'})
+        df1 = df1.rename(columns={'Price Point Name': 'PricePointName', 'Gross Sales': 'GrossSales'})
 
     elif uploaded_file.name.endswith('.xlsx'):
         df1 = pd.read_excel(uploaded_file, usecols=['Date', 'Category','Item','Qty','Price Point Name','SKU','Gross Sales'])
-        df1 = df1.rename(columns={'Price Point Name': 'PricePointName', 'Gross Sale': 'GrossSale'})
+        df1 = df1.rename(columns={'Price Point Name': 'PricePointName', 'Gross Sales': 'GrossSales'})
     elif uploaded_file.name.endswith('.json'):
         df1 = pd.read_json(uploaded_file)
-        df1 = df1.rename(columns={'Price Point Name': 'PricePointName', 'Gross Sale': 'GrossSale'})
+        df1 = df1.rename(columns={'Price Point Name': 'PricePointName', 'Gross Sales': 'GrossSales'})
     else:
         # handle other file formats
         pass
@@ -59,13 +59,11 @@ if uploaded_file is not None:
     df = pd.concat([df1, df]) # create a list of dataframes to pass as the first argument to pd.concat()
    
     st.header("New Shape of the data set")
-    df.shape
+    st.write(df.shape)
+    st.title("Show Data Frame")
+    st.write(df.head())
+    
   
-
-
-
-
-
 # Data Load
 
 # Change Datatype
