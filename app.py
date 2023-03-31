@@ -163,8 +163,8 @@ y = df['Qty']
 
 
 # Split Train Test 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, shuffle =True)
-model_ex= ExtraTreesRegressor(criterion= 'squared_error', max_features= None, random_state=1).fit( X_train, y_train)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, shuffle =True)
+model_ex= ExtraTreesRegressor(criterion= 'squared_error', max_features= None, random_state=42).fit( X_train, y_train)
 y_prediction_ex = model_ex.predict(X_test)
 
 
