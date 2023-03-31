@@ -8,6 +8,7 @@ import streamlit as st
 from PIL import Image
 import datetime as dt
 from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import r2_score
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import ExtraTreesRegressor
 #scores
@@ -166,6 +167,9 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, shuffl
 model_ex= ExtraTreesRegressor(criterion= 'squared_error', max_features= None, random_state=1).fit( X_train, y_train)
 y_prediction_ex = model_ex.predict(X_test)
 
+
+r2_score_ex = r2_score(y_test, y_prediction_ex)
+st.write("R-squared score:", r2_score_ex)
 
 
 # Define the number of days to predict ahead
