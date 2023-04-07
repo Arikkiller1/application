@@ -27,11 +27,11 @@ image = Image.open("supermarket-4052658__340.jpg")
 st.image(image, caption="Your Image Caption")
 
 # Open the zip file and get the name of the csv file inside
-zip_file = zipfile.ZipFile('items-2022-02-08-2023-02-09.zip')
+zip_file = zipfile.ZipFile('custamise.zip')
 csv_file_name = zip_file.namelist()[0]
 
 # Read the csv file into a pandas DataFrame
-with zip_file.open("items-2022-02-08-2023-02-09.csv") as csv_file:
+with zip_file.open("custamise.csv") as csv_file:
     df = pd.read_csv(csv_file, encoding='ISO-8859-1', usecols=['Date','Category','Item','Qty','PricePointName','SKU','GrossSales'])
     
 st.header("Shape of the data set")
