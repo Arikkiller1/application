@@ -158,6 +158,32 @@ df['Year'] = df['Date'].dt.year
 
 df.drop(['Date'],axis=1,inplace=True)
 
+def mod_outlier(df):
+        col_vals = df.columns
+        df1 = df.copy()
+        df = df._get_numeric_data()
+
+        q1 = df.quantile(0.25)
+        q3 = df.quantile(0.75)
+
+        iqr = q3 - q1
+
+        lower_bound = q1 - (1.5 * iqr)
+        upper_bound = q3 + (1.5 * iqr)
+        for col in col_vals:
+            for i in range(0, len(df[col])):
+                if df[col][i] < lower_bound[col]:
+                    df[col][i] = lower_bound[col]
+
+                if df[col][i] > upper_bound[col]:
+                    df[col][i] = upper_bound[col]
+
+        for col in col_vals:
+            df1[col] = df[col]
+
+            return(df1)
+    df=mod_outlier(df)
+
 X = df.drop('Qty', axis=1)
 y = df['Qty']
 
