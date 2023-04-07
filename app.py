@@ -173,7 +173,7 @@ st.write("R-squared score:", r2_score_ex)
 
 
 # Define the number of days to predict ahead
-num_days = 7
+num_days = 1
 
 # Get the current date
 current_date = datetime.today()
