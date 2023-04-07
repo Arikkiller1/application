@@ -146,6 +146,16 @@ df = df.sort_values(['Date', 'Category', 'Item','PricePointName'])
 
 # Set the date column as the index
 
+
+# Check the resulting dataframe
+
+
+
+# split date into month day and year column
+df['Month'] = df['Date'].dt.month
+df['Day'] = df['Date'].dt.day
+df['Year'] = df['Date'].dt.year
+
 df.drop(['Date'],axis=1,inplace=True)
 
 def mod_outlier(df):
