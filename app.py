@@ -182,7 +182,8 @@ def mod_outlier(df):
             df1[col] = df[col]
 
             return(df1)
-    df=mod_outlier(df)
+        
+df = mod_outlier(df)
 
 X = df.drop('Qty', axis=1)
 y = df['Qty']
