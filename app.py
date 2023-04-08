@@ -317,7 +317,7 @@ if st.button("predict"):
     })
 
 
-if st.button("Show Results"):
+
 
 
     st.header("Prediction Result")
