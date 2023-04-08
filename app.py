@@ -183,11 +183,8 @@ model_ex= ExtraTreesRegressor(criterion= 'squared_error', max_features= None, ra
 y_prediction_ex = model_ex.predict(X_test)
 
 score=model_ex.score(X,y)
+st.header("Accuracy")
 st.write(score)
-
-r2_score_ex = r2_score(y_test, y_prediction_ex)
-st.write("R-squared score:", r2_score_ex)
-
 
 # Define the number of days to predict ahead
 num_days = 1
