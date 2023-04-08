@@ -16,15 +16,15 @@ from dateutil import parser
 import zipfile
 
 
-# st.sidebar.image('11697-removebg-preview.png', width=200)
-# st.header("Grocery Sale Prediction Application")
+st.sidebar.image('11697-removebg-preview.png', width=200)
+st.header("Grocery Sale Prediction Application")
 
 
-# # Load your image
-# image = Image.open("supermarket-4052658__340.jpg")
+# Load your image
+image = Image.open("supermarket-4052658__340.jpg")
 
-# # Display the image
-# st.image(image, caption="Your Image Caption")
+# Display the image
+st.image(image, caption="Your Image Caption")
 
 # Open the zip file and get the name of the csv file inside
 zip_file = zipfile.ZipFile('custamise.zip')
