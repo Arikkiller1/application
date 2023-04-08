@@ -227,7 +227,7 @@ for date in date_list:
                     'Category': row['Category'],
                     'Item': row['Item'],
                     'PricePointName': row['PricePointName'],
-                    'Qty': prediction
+                    'Qty': round(prediction)
                 }, ignore_index=True)
 
 # Check the predictions
