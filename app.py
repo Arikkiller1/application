@@ -187,7 +187,13 @@ st.header("Accuracy")
 st.write(score)
 
 # Define the number of days to predict ahead
-num_days = 1
+
+day_input = st.number_input("Enter day", min_value=1, max_value=31, value=1)
+
+month_input = st.number_input("Enter month", min_value=1, max_value=12, value=1)
+
+year_input = st.number_input("Enter year", min_value=1900, max_value=3000, value=datetime.today().year)
+
 
 # Get the current date
 current_date = datetime.today()
@@ -310,31 +316,36 @@ final_df = pd.DataFrame({
 })
 
 
-st.header("Prediction Result")
+if st.button("Predict"):
 
 
-st.write(final_df)
+    st.header("Prediction Result")
 
-# add a button to save the DataFrame to a file
-if st.button('Download DataFrame'):
-    # convert the DataFrame to a CSV string
-    csv = final_df.to_csv(index=False)
-    # use the file_downloader function to download the CSV string as a file
-    st.download_button(
-        label="Download CSV",
-        data=csv,
-        file_name='my_dataframe.csv',
-        mime='text/csv'
-    )
 
-# create a search field
-search_term = st.text_input('Search for an item')
+    st.write(final_df)
 
-    # filter the data based on the search term
-if search_term:
-    filtered_df = final_df[final_df['Item'].str.contains(search_term, case=False)]
-else:
-    filtered_df = final_df
+        # add a button to save the DataFrame to a file
+    # add a button to save the DataFrame to a file
+    if st.button('Download DataFrame'):
+        # convert the DataFrame to a CSV string
+        csv = final_df.to_csv(index=False)
+        # use the file_downloader function to download the CSV string as a file
+        st.download_button(
+            label="Download CSV",
+            data=csv,
+            file_name='my_dataframe.csv',
+            mime='text/csv'
+        )
 
-    # display the filtered data
-st.write(filtered_df)
+        # create a search field
+    search_term = st.text_input('Search for an item')
+
+            # filter the data based on the search term
+    if search_term:
+        filtered_df = final_df[final_df['Item'].str.contains(search_term, case=False)]
+    else:
+        filtered_df = final_df
+
+            # display the filtered data
+    st.write(filtered_df)
+
