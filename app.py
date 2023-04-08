@@ -16,15 +16,15 @@ from dateutil import parser
 import zipfile
 
 
-st.sidebar.image('11697-removebg-preview.png', width=200)
-st.header("Grocery Sale Prediction Application")
+# st.sidebar.image('11697-removebg-preview.png', width=200)
+# st.header("Grocery Sale Prediction Application")
 
 
-# Load your image
-image = Image.open("supermarket-4052658__340.jpg")
+# # Load your image
+# image = Image.open("supermarket-4052658__340.jpg")
 
-# Display the image
-st.image(image, caption="Your Image Caption")
+# # Display the image
+# st.image(image, caption="Your Image Caption")
 
 # Open the zip file and get the name of the csv file inside
 zip_file = zipfile.ZipFile('custamise.zip')
@@ -32,7 +32,7 @@ csv_file_name = zip_file.namelist()[0]
 
 # Read the csv file into a pandas DataFrame
 with zip_file.open("custamise.csv") as csv_file:
-    df = pd.read_csv(csv_file, encoding='ISO-8859-1', usecols=['Date','Category','Item','Qty','PricePointName','SKU','GrossSales'])
+    df = pd.read_csv(csv_file, encoding='ISO-8859-1', usecols=['Date','Category','Item','Qty','PricePointName'])
     
 st.header("Shape of the data set")
 df.shape
@@ -44,15 +44,15 @@ uploaded_file = st.sidebar.file_uploader("Upload a file")
 
 if uploaded_file is not None:
     if uploaded_file.name.endswith('.csv'):
-        df1 = pd.read_csv(uploaded_file, encoding='ISO-8859-1',usecols=['Date', 'Category','Item','Qty','Price Point Name','SKU','Gross Sales'])
-        df1 = df1.rename(columns={'Price Point Name': 'PricePointName', 'Gross Sales': 'GrossSales'})
+        df1 = pd.read_csv(uploaded_file, encoding='ISO-8859-1',usecols=['Date', 'Category','Item','Qty','Price Point Name'])
+        df1 = df1.rename(columns={'Price Point Name': 'PricePointName'})
 
     elif uploaded_file.name.endswith('.xlsx'):
-        df1 = pd.read_excel(uploaded_file, usecols=['Date', 'Category','Item','Qty','Price Point Name','SKU','Gross Sales'])
-        df1 = df1.rename(columns={'Price Point Name': 'PricePointName', 'Gross Sales': 'GrossSales'})
+        df1 = pd.read_excel(uploaded_file, usecols=['Date', 'Category','Item','Qty','Price Point Name'])
+        df1 = df1.rename(columns={'Price Point Name': 'PricePointName'})
     elif uploaded_file.name.endswith('.json'):
         df1 = pd.read_json(uploaded_file)
-        df1 = df1.rename(columns={'Price Point Name': 'PricePointName', 'Gross Sales': 'GrossSales'})
+        df1 = df1.rename(columns={'Price Point Name': 'PricePointName'})
     else:
         # handle other file formats
         pass
@@ -77,12 +77,9 @@ df['Month'] = df['Date'].dt.month
 df['Day'] = df['Date'].dt.day
 df['Year'] = df['Date'].dt.year
 
-
-# After spliting drop Time column
-df.drop(["SKU","GrossSales"],axis=1,inplace=True)
-
 # Drop Null Values
 df.dropna(inplace=True)
+
 
 # Manual label encoding of all category values
 df['Category'] = df['Category'].replace({'Coffee & Tea': 0,'Bakery & Dessert':1, 'Beverages Taxable':2,
@@ -138,25 +135,14 @@ df["Item"]=pd.to_numeric(df["Item"], errors='coerce')
 
 
 
-# Drop Time And Implement Model
-df = df.groupby(['Date', 'Category', 'Item','PricePointName']).agg({'Qty': 'sum'}).reset_index()
+agg_df = df.groupby(['Day','Month','Year', 'Category', 'Item','PricePointName']).agg({'Qty': 'sum'}).reset_index()
 
 # Sort the data by date, category, and item
-df = df.sort_values(['Date', 'Category', 'Item','PricePointName'])
+agg_df = agg_df.sort_values(['Day','Month','Year', 'Category', 'Item','PricePointName'])
 
 # Set the date column as the index
 
 
-# Check the resulting dataframe
-
-
-
-# split date into month day and year column
-df['Month'] = df['Date'].dt.month
-df['Day'] = df['Date'].dt.day
-df['Year'] = df['Date'].dt.year
-
-df.drop(['Date'],axis=1,inplace=True)
 
 def mod_outlier(df):
         col_vals = df.columns
@@ -183,17 +169,21 @@ def mod_outlier(df):
 
             return(df1)
         
-df = mod_outlier(df)
+df = mod_outlier(agg_df)
 
 X = df.drop('Qty', axis=1)
 y = df['Qty']
 
 
 # Split Train Test 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, shuffle =True)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, shuffle =True)
+
 model_ex= ExtraTreesRegressor(criterion= 'squared_error', max_features= None, random_state=42).fit( X_train, y_train)
+
 y_prediction_ex = model_ex.predict(X_test)
 
+score=model_ex.score(X,y)
+st.write(score)
 
 r2_score_ex = r2_score(y_test, y_prediction_ex)
 st.write("R-squared score:", r2_score_ex)
