@@ -199,7 +199,7 @@ year_input = st.number_input("Enter year", min_value=1900, max_value=3000, value
 current_date = datetime.today()
 
 # Create a list of dates for the next week
-date_list = [current_date + timedelta(days=x) for x in range(num_days)]
+date_list = [current_date + timedelta(days=x) for x in range(day_input)]
 
 # Create a DataFrame to store the predictions
 predictions_df = pd.DataFrame(columns=['Day', 'Month', 'Year', 'Category', 'Item', 'PricePointName', 'Qty'])
@@ -212,9 +212,9 @@ for date in date_list:
                 
                 # Create a row of data to pass to the model
                 row = {
-                    'Day': date.day,
-                    'Month': date.month,
-                    'Year': date.year,
+                    'Day': day_input,
+                    'Month': month_input,
+                    'Year': year_input,
                     'Category': category,
                     'Item': item,
                     'PricePointName': price_point,
