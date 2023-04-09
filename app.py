@@ -320,7 +320,14 @@ final_df = pd.DataFrame({
 
 st.header("Prediction Result")
 
-df.drop_duplicates(inplace=True)
+final_df = final_df.groupby(['Day','Month','Year', 'Category', 'Item','PricePointName']).agg({'Qty': 'sum'}).reset_index()
+
+# Sort the data by date, category, and item
+final_df = final_df.sort_values(['Day','Month','Year', 'Category', 'Item','PricePointName'])
+
+
+
+final_df.drop_duplicates(inplace=True)
 st.write(final_df)
 
         # add a button to save the DataFrame to a file
