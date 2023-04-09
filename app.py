@@ -322,7 +322,7 @@ if st.button("predict"):
 
     st.header("Prediction Result")
 
-
+    df.drop_duplicates(inplace=True)
     st.write(final_df)
 
         # add a button to save the DataFrame to a file
