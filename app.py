@@ -81,18 +81,70 @@ df['Year'] = df['Date'].dt.year
 df.dropna(inplace=True)
 
 
+# # Manual label encoding of all category values
+# df['Category'] = df['Category'].replace({'Coffee & Tea': 0,'Bakery & Dessert':1, 'Beverages Taxable':2,
+#        'Breakfast Taxable':3, 'Lunch Taxable':4, 'Beer':5,
+#        'Grocery Non Taxable':6, 'Fruit Bunch':7, 'Grocery Taxable':8,
+#        'Soup & Crock':9, 'Frozen':10, 'Fruit Single':11, 'Bulk Snacks':12, 'Dairy':13,
+#        'No Barcode':14, 'Fine Foods & Cheese':15, 'Drug Store':16, 'Grab & Go':17,
+#        'Bread Retail':18, 'Candy':19, 'Chips & Snacks':20, 'Wine':21, 'Cigarettes':22,
+#        'Beverages Non Taxable':23, 'Produce':24, 'Wine No Barcode':25,
+#        'Health & Beauty':26, 'Hardware':27, 'None':28, 'Tobacco':29, 'Housewares':30,
+#        'Meat & Seafood':31, 'Full Meals Non Taxable':32, 'Paradise Remedies':33,
+#        'Swag':34, 'Mead':35, 'Gift Wrap':36, 'Beer No Barcode':37, 'Beer Single':38,
+#        'Holiday':39})
+
+# # Manual label encoding of all PricePointName values
+# le = LabelEncoder()
+# df['PricePointName'] = le.fit_transform(df['PricePointName'])
+# l = le.inverse_transform(df['PricePointName'])  
+# m=df.PricePointName.tolist()
+
+# size = pd.DataFrame(list(zip(m, l)),
+#                columns =['0', '1'])
+
+# size.to_csv("updated_size_labelencoding.csv",index=False)
+
+# # label encoding for Item column
+# df['Item'] = le.fit_transform(df['Item'])
+
+# # Inverse transform</h1>
+# l = le.inverse_transform(df['Item'])  
+# m=df.Item.tolist()
+# Item = pd.DataFrame(list(zip(m, l)),
+#                columns =['0', '1'])
+
+# Item.to_csv("updated_Item_labelencoding.csv",index=False)
+# dict = {'Coffee & Tea': 0,'Bakery & Dessert':1, 'Beverages Taxable':2,
+#        'Breakfast Taxable':3, 'Lunch Taxable':4, 'Beer':5,
+#        'Grocery Non Taxable':6, 'Fruit Bunch':7, 'Grocery Taxable':8,
+#        'Soup & Crock':9, 'Frozen':10, 'Fruit Single':11, 'Bulk Snacks':12, 'Dairy':13,
+#        'No Barcode':14, 'Fine Foods & Cheese':15, 'Drug Store':16, 'Grab & Go':17,
+#        'Bread Retail':18, 'Candy':19, 'Chips & Snacks':20, 'Wine':21, 'Cigarettes':22,
+#        'Beverages Non Taxable':23, 'Produce':24, 'Wine No Barcode':25,
+#        'Health & Beauty':26, 'Hardware':27, 'None':28, 'Tobacco':29, 'Housewares':30,
+#        'Meat & Seafood':31, 'Full Meals Non Taxable':32, 'Paradise Remedies':33,
+#        'Swag':34, 'Mead':35, 'Gift Wrap':36, 'Beer No Barcode':37, 'Beer Single':38,
+#        'Holiday':39}
+# # Save Data Frame
+# pd.DataFrame.from_dict(dict, orient='index').to_csv('updated_Category.csv')
+
+# # Model Implementation</h1>
+# df["Category"]=pd.to_numeric(df["Category"], errors='coerce')
+# df["Item"]=pd.to_numeric(df["Item"], errors='coerce')
+
 # Manual label encoding of all category values
-df['Category'] = df['Category'].replace({'Coffee & Tea': 0,'Bakery & Dessert':1, 'Beverages Taxable':2,
-       'Breakfast Taxable':3, 'Lunch Taxable':4, 'Beer':5,
-       'Grocery Non Taxable':6, 'Fruit Bunch':7, 'Grocery Taxable':8,
-       'Soup & Crock':9, 'Frozen':10, 'Fruit Single':11, 'Bulk Snacks':12, 'Dairy':13,
-       'No Barcode':14, 'Fine Foods & Cheese':15, 'Drug Store':16, 'Grab & Go':17,
-       'Bread Retail':18, 'Candy':19, 'Chips & Snacks':20, 'Wine':21, 'Cigarettes':22,
-       'Beverages Non Taxable':23, 'Produce':24, 'Wine No Barcode':25,
-       'Health & Beauty':26, 'Hardware':27, 'None':28, 'Tobacco':29, 'Housewares':30,
-       'Meat & Seafood':31, 'Full Meals Non Taxable':32, 'Paradise Remedies':33,
-       'Swag':34, 'Mead':35, 'Gift Wrap':36, 'Beer No Barcode':37, 'Beer Single':38,
-       'Holiday':39})
+df['Category'] = df['Category'].replace({'Beverages Taxable': 0,'Beer':1, 'Bulk Snacks':2,
+       'Grocery Non Taxable':3, 'Bread Retail':4, 'No Barcode':5,
+       'Cigarettes':6, 'Candy':7, 'Grab & Go':8,
+       'Full Meals Non Taxable':9, 'Wine':10, 'Beverages Non Taxable':11, 'Frozen':12, 'Fruit Single':13,
+       'Bakery & Dessert':14, 'Chips & Snacks':15, 'Produce':16, 'Hardware, Auto, Electronics':17,
+       'Grocery Taxable':18, 'Fruit Bunch':19, 'Coffee & Tea':20, 'Fine Foods & Cheese':21, 'Swag':22,
+       'Dairy':23, 'Beer No Barcode':24, 'Other':25,
+       'Lunch Taxable':26, 'Sides':27, 'Soup & Crock':28, 'Breakfast Taxable':29, 'Health & Beauty':30,
+       'Housewares':31, 'Paradise Remedies':32, 'Drug Store':33,
+       'Wine No Barcode':34, 'Tobacco':35, 'Meat & Seafood':36, 'Gift Wrap':37, 'None':38,
+       'Mead':39,'Beer Single':40})
 
 # Manual label encoding of all PricePointName values
 le = LabelEncoder()
@@ -115,23 +167,24 @@ Item = pd.DataFrame(list(zip(m, l)),
                columns =['0', '1'])
 
 Item.to_csv("updated_Item_labelencoding.csv",index=False)
-dict = {'Coffee & Tea': 0,'Bakery & Dessert':1, 'Beverages Taxable':2,
-       'Breakfast Taxable':3, 'Lunch Taxable':4, 'Beer':5,
-       'Grocery Non Taxable':6, 'Fruit Bunch':7, 'Grocery Taxable':8,
-       'Soup & Crock':9, 'Frozen':10, 'Fruit Single':11, 'Bulk Snacks':12, 'Dairy':13,
-       'No Barcode':14, 'Fine Foods & Cheese':15, 'Drug Store':16, 'Grab & Go':17,
-       'Bread Retail':18, 'Candy':19, 'Chips & Snacks':20, 'Wine':21, 'Cigarettes':22,
-       'Beverages Non Taxable':23, 'Produce':24, 'Wine No Barcode':25,
-       'Health & Beauty':26, 'Hardware':27, 'None':28, 'Tobacco':29, 'Housewares':30,
-       'Meat & Seafood':31, 'Full Meals Non Taxable':32, 'Paradise Remedies':33,
-       'Swag':34, 'Mead':35, 'Gift Wrap':36, 'Beer No Barcode':37, 'Beer Single':38,
-       'Holiday':39}
+dict = {'Beverages Taxable': 0,'Beer':1, 'Bulk Snacks':2,
+       'Grocery Non Taxable':3, 'Bread Retail':4, 'No Barcode':5,
+       'Cigarettes':6, 'Candy':7, 'Grab & Go':8,
+       'Full Meals Non Taxable':9, 'Wine':10, 'Beverages Non Taxable':11, 'Frozen':12, 'Fruit Single':13,
+       'Bakery & Dessert':14, 'Chips & Snacks':15, 'Produce':16, 'Hardware, Auto, Electronics':17,
+       'Grocery Taxable':18, 'Fruit Bunch':19, 'Coffee & Tea':20, 'Fine Foods & Cheese':21, 'Swag':22,
+       'Dairy':23, 'Beer No Barcode':24, 'Other':25,
+       'Lunch Taxable':26, 'Sides':27, 'Soup & Crock':28, 'Breakfast Taxable':29, 'Health & Beauty':30,
+       'Housewares':31, 'Paradise Remedies':32, 'Drug Store':33,
+       'Wine No Barcode':34, 'Tobacco':35, 'Meat & Seafood':36, 'Gift Wrap':37, 'None':38,
+       'Mead':39,'Beer Single':40}
 # Save Data Frame
 pd.DataFrame.from_dict(dict, orient='index').to_csv('updated_Category.csv')
 
 # Model Implementation</h1>
 df["Category"]=pd.to_numeric(df["Category"], errors='coerce')
 df["Item"]=pd.to_numeric(df["Item"], errors='coerce')
+
 
 
 
