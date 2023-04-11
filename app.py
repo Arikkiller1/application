@@ -48,18 +48,18 @@ if uploaded_file is not None:
         df1 = pd.read_csv(uploaded_file, encoding='ISO-8859-1',usecols=['Date', 'Category','Item','Qty','Price Point Name'])
         df1 = df1.rename(columns={'Price Point Name': 'PricePointName'})
 
-#     elif uploaded_file.name.endswith('.xlsx'):
-#         df1 = pd.read_excel(uploaded_file, usecols=['Date', 'Category','Item','Qty','Price Point Name'])
-#         df1 = df1.rename(columns={'Price Point Name': 'PricePointName'})
-#     elif uploaded_file.name.endswith('.json'):
-#         df1 = pd.read_json(uploaded_file)
-#         df1 = df1.rename(columns={'Price Point Name': 'PricePointName'})
+    elif uploaded_file.name.endswith('.xlsx'):
+        df1 = pd.read_excel(uploaded_file, usecols=['Date', 'Category','Item','Qty','Price Point Name'])
+        df1 = df1.rename(columns={'Price Point Name': 'PricePointName'})
+    elif uploaded_file.name.endswith('.json'):
+        df1 = pd.read_json(uploaded_file)
+        df1 = df1.rename(columns={'Price Point Name': 'PricePointName'})
     else:
         # handle other file formats
         pass
     
     df = pd.concat([df1, df]) # create a list of dataframes to pass as the first argument to pd.concat()
-    df['PricePointName'].fillna('Missing cell', inplace=True)
+    df['PricePointName','Category','Item'].fillna('Missing cell', inplace=True)
     st.header("New Shape of the data set")
     df.shape
   
