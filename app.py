@@ -188,18 +188,18 @@ st.write(score)
 
 # Define the number of days to predict ahead
 
-day_input = st.number_input("Enter day", min_value=1, max_value=31, value=1)
+# day_input = st.number_input("Enter day", min_value=1, max_value=31, value=1)
 
-month_input = st.number_input("Enter month", min_value=1, max_value=12, value=1)
+# month_input = st.number_input("Enter month", min_value=1, max_value=12, value=1)
 
-year_input = st.number_input("Enter year", min_value=1900, max_value=3000, value=datetime.today().year)
+# year_input = st.number_input("Enter year", min_value=1900, max_value=3000, value=datetime.today().year)
 
-
+num_days = 7
 # Get the current date
 current_date = datetime.today()
 
 # Create a list of dates for the next week
-date_list = [current_date + timedelta(days=x) for x in range(day_input)]
+date_list = [current_date + timedelta(days=x) for x in range(num_days)]
 
 # Create a DataFrame to store the predictions
 predictions_df = pd.DataFrame(columns=['Day', 'Month', 'Year', 'Category', 'Item', 'PricePointName', 'Qty'])
@@ -211,9 +211,9 @@ for date in date_list:
 
                 # Create a row of data to pass to the model
                 row = {
-                    'Day': day_input,
-                    'Month': month_input,
-                    'Year': year_input,
+                    'Day':  date.day,
+                    'Month': date.month,
+                    'Year':  date.year,
                     'Category': category,
                     'Item': item,
                     'PricePointName': price_point,
