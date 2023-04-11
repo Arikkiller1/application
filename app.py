@@ -35,6 +35,7 @@ with zip_file.open("new_data.csv") as csv_file:
     df = pd.read_csv(csv_file, encoding='ISO-8859-1', usecols=['Date','Category','Item','Qty','PricePointName'])
     
 st.header("Shape of the data set")
+
 df.shape
 
 
@@ -58,7 +59,7 @@ if uploaded_file is not None:
         pass
     
     df = pd.concat([df1, df]) # create a list of dataframes to pass as the first argument to pd.concat()
-   
+    df['PricePointName'].fillna('Missing cell', inplace=True)
     st.header("New Shape of the data set")
     df.shape
   
