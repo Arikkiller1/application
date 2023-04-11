@@ -59,7 +59,7 @@ if uploaded_file is not None:
         pass
     
     df = pd.concat([df1, df]) # create a list of dataframes to pass as the first argument to pd.concat()
-    df['PricePointName','Category','Item'].fillna('Missing cell', inplace=True)
+    df['PricePointName','Item'].fillna('Missing cell', inplace=True)
     st.header("New Shape of the data set")
     df.shape
   
