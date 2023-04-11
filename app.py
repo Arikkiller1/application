@@ -144,7 +144,7 @@ df['Category'] = df['Category'].replace({'Beverages Taxable': 0,'Beer':1, 'Bulk 
        'Lunch Taxable':26, 'Sides':27, 'Soup & Crock':28, 'Breakfast Taxable':29, 'Health & Beauty':30,
        'Housewares':31, 'Paradise Remedies':32, 'Drug Store':33,
        'Wine No Barcode':34, 'Tobacco':35, 'Meat & Seafood':36, 'Gift Wrap':37, 'None':38,
-       'Mead':39,'Beer Single':40})
+       'Mead':39,'Beer Single':40,'Newspaper':41})
 
 # Manual label encoding of all PricePointName values
 le = LabelEncoder()
@@ -177,7 +177,7 @@ dict = {'Beverages Taxable': 0,'Beer':1, 'Bulk Snacks':2,
        'Lunch Taxable':26, 'Sides':27, 'Soup & Crock':28, 'Breakfast Taxable':29, 'Health & Beauty':30,
        'Housewares':31, 'Paradise Remedies':32, 'Drug Store':33,
        'Wine No Barcode':34, 'Tobacco':35, 'Meat & Seafood':36, 'Gift Wrap':37, 'None':38,
-       'Mead':39,'Beer Single':40}
+       'Mead':39,'Beer Single':40,'Newspaper':41}
 # Save Data Frame
 pd.DataFrame.from_dict(dict, orient='index').to_csv('updated_Category.csv')
 
