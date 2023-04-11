@@ -27,11 +27,11 @@ image = Image.open("supermarket-4052658__340.jpg")
 st.image(image, caption="Your Image Caption")
 
 # Open the zip file and get the name of the csv file inside
-zip_file = zipfile.ZipFile('custamise.zip')
+zip_file = zipfile.ZipFile('new_data.zip')
 csv_file_name = zip_file.namelist()[0]
 
 # Read the csv file into a pandas DataFrame
-with zip_file.open("custamise.csv") as csv_file:
+with zip_file.open("new_data.csv") as csv_file:
     df = pd.read_csv(csv_file, encoding='ISO-8859-1', usecols=['Date','Category','Item','Qty','PricePointName'])
     
 st.header("Shape of the data set")
@@ -185,17 +185,12 @@ pd.DataFrame.from_dict(dict, orient='index').to_csv('updated_Category.csv')
 df["Category"]=pd.to_numeric(df["Category"], errors='coerce')
 df["Item"]=pd.to_numeric(df["Item"], errors='coerce')
 
-
-
-
 agg_df = df.groupby(['Day','Month','Year', 'Category', 'Item','PricePointName']).agg({'Qty': 'sum'}).reset_index()
 
 # Sort the data by date, category, and item
 agg_df = agg_df.sort_values(['Day','Month','Year', 'Category', 'Item','PricePointName'])
 
 # Set the date column as the index
-
-
 
 def mod_outlier(df):
         col_vals = df.columns
